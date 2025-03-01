@@ -26,7 +26,7 @@ class BlueTang extends Animal implements Swimming
 
     public function swim(): void
     {
-        echo "$this->name the BlueTang is swimming in the coral reefs.<br>";
+        echo "$this->name the $this->species is swimming in the coral reefs.<br>";
         if ($this->canSwimFast) {
             echo "$this->name swims gracefully and quickly!<br>";
         } else {
@@ -36,6 +36,6 @@ class BlueTang extends Animal implements Swimming
 
     public function makeSound(): void
     {
-        echo "$this->name the BlueTang makes a high-pitched sound.<br>";
+        echo "$this->name the $this->species makes a high-pitched sound.<br>";
     }
 }
