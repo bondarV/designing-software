@@ -63,6 +63,8 @@ class HeroBuilder implements CharacterBuilder
 
     public function getHero(): Hero
     {
-        return $this->hero;
+        $hero = $this->hero;
+        $this->reset();
+        return $hero;
     }
 }

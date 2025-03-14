@@ -1,6 +1,7 @@
 <?php
 
 use Builders\HeroBuilder;
+use Director\Director;
 
 require './autoload.php';
 
@@ -16,3 +17,8 @@ var_dump($heroBuilder
     ->addFeature('Cover the enemy with curve')
     ->addGoodDeed('Save the dog')
     ->getHero());
+var_dump($heroBuilder->getHero());
+$director = new Director();
+$director->setBuilder($heroBuilder);
+$director->provideBasicOrk();
+var_dump($heroBuilder->getHero());

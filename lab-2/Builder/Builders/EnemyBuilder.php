@@ -61,6 +61,8 @@ class EnemyBuilder implements CharacterBuilder
     }
     public function getEnemy(): Enemy
     {
-        return $this->enemy;
+        $enemy = $this->enemy;
+        $this->reset();
+        return $enemy;
     }
 }
