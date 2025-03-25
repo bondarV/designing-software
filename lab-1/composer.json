@@ -1,0 +1,15 @@
+{
+    "name": "dedr/lab-1",
+    "autoload": {
+        "psr-4": {
+            "Dedr\\Lab1\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vitalii",
+            "email": "bondarfamily123@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -8,7 +8,7 @@ class Director
 {
     private CharacterBuilder $builder;
 
-    public function setBuilder(CharacterBuilder $builder)
+    public function setBuilder(CharacterBuilder $builder) : void
     {
 
         $this->builder = $builder;
