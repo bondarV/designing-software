@@ -1,0 +1,12 @@
+[Log] clientCode
+[Error] clientCode
+[Warning] clientCode
+[Log] clientCode
+[Error] clientCode
+[Warning] clientCode
+[LOGGING]clientCode
+[ERROR]clientCode
+[WARNING]clientCode
+[LOGGING] clientCode
+[ERROR] clientCode
+[WARNING] clientCode
