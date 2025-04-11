@@ -1,28 +1,31 @@
 <?php
-spl_autoload_register(function ($class) {
-    $path = __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-    if (file_exists($path)) {
-        include $path;
-    }
-});
-
+include '../helpers-functions/autoload.php';
 $initialMemory = memory_get_usage();
 
-// Створюємо фабрику для повторного використання об'єктів (Flyweight)
-$factory = new ElementFactory();
+$factory = new ElementFactory([['body', 'block', 'false'],
+    ['h1', 'block', 'false'],
+    ['h2', 'block', 'false'],
+    ['blockquote', 'block', 'false'],
+    ['p', 'block', 'false']
+]);
+
 $bodyBlockTag = $factory->getFlyweight('body');
 $h1BlockTag = $factory->getFlyweight('h1');
 $h2BlockTag = $factory->getFlyweight('h2');
 $blockQuoteTag = $factory->getFlyweight('blockquote');
 $paragraphBlockTag = $factory->getFlyweight('p');
 
-// Кореневий елемент
+
 $body = new LightElementNode(elementVariation: $bodyBlockTag);
 
 $headerOne = function (string $firstRowText) use ($body, $h1BlockTag) {
     $h1Node = new LightElementNode(elementVariation: $h1BlockTag);
-    $h1Node->add(new LightTextNode($firstRowText));
-    $body->add($h1Node);
+    try {
+        $h1Node->add(new LightTextNode($firstRowText));
+        $body->add($h1Node);
+    }catch (Exception $e)
+    {
+        echo "An error occurred: " . $e->getMessage();    }
 };
 
 $addNode = function (ElementVariation $variation, string $text) use ($body) {
@@ -51,7 +54,7 @@ while (($line = fgets($handle)) !== false) {
 
     if (strlen($line) < 20) {
         $addNode($h2BlockTag, $line);
-    } elseif (strpos($line, ' ') === 0) {
+    } elseif (str_starts_with($line, ' ')) {
         $addNode($blockQuoteTag, $line);
     } else {
         $addNode($paragraphBlockTag, $line);
@@ -63,5 +66,4 @@ fclose($handle);
 echo $body->getHTML() . PHP_EOL;
 $finalMemory = memory_get_usage();
 
-// Виводимо різницю
 echo "Пам'ять, що використовує дерево верстки: " . ($finalMemory - $initialMemory) . " байт.";

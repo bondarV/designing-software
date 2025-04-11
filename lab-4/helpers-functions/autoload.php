@@ -7,9 +7,9 @@ spl_autoload_register(function ($class) {
     $patterns = ['CoR'];
 
     $externalPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-
     foreach ($patterns as $pattern) {
         $fullPath = $externalPath.$pattern. DIRECTORY_SEPARATOR . $relativePath;
+
         if (file_exists($fullPath)) {
             require_once $fullPath;
             return;

@@ -2,23 +2,21 @@
 class ElementVariation
 {
     public function __construct(
-        private string $tagName,
-        private string $displayValue,
-        private bool $isSelfClosing
+        private array $state
     ) {}
 
     public function getTagName(): string
     {
-        return $this->tagName;
+        return $this->state[0];
     }
 
     public function isSelfClosing(): bool
     {
-        return $this->isSelfClosing;
+        return $this->state[2];
     }
 
     public function displayValue(): string
     {
-        return $this->displayValue;
+        return $this->state[1];
     }
 }
