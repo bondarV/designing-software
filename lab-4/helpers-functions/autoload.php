@@ -4,7 +4,7 @@ spl_autoload_register(function ($class) {
     $relativePath = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 
 
-    $patterns = ['CoR'];
+    $patterns = ['CoR','Mediator'];
 
     $externalPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
     foreach ($patterns as $pattern) {
