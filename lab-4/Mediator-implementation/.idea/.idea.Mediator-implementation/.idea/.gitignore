@@ -3,8 +3,8 @@
 /workspace.xml
 # Rider ignored files
 /contentModel.xml
-/.idea.Mediator.iml
 /projectSettingsUpdater.xml
+/.idea.Mediator-implementation.iml
 /modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
