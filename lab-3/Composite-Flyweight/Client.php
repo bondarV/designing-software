@@ -15,7 +15,7 @@ class Client
         }
     }
 
-    public function getMarkup() : LightElementNode
+    public function getMarkup() : string
     {
         $body = new LightElementNode(elementVariation: new ElementVariation('body'));
         $firstLineRead = false;
@@ -31,7 +31,7 @@ class Client
             $body->add($node);
         }
         fclose($this->fileHandle);
-        return $body;
+        return $body->getHTML();
     }
 
 }
