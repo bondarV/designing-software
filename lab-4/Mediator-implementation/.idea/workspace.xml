@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e1709896-15d4-4c7f-8053-26ad10ca43e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Mediator/.idea/.idea.Mediator/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/.idea/.idea.Mediator/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/.idea/.idea.Mediator/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/.idea/.idea.Mediator/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator/Aircraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aircraft.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator/CommandCentre.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CommandCentre.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator/Mediator.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Mediator/Mediator/Runaway.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Runaway.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Mediator-implementation/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Mediator-implementation/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +20,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2vaTfvbFcuxAMU0eDBkB1I6An3M" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,8 +32,12 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/var/www/designing-software/lab-4/Mediator-implementation",
+    "git-widget-placeholder": "strategy",
+    "last_opened_file_path": "/var/www/designing-software/lab-4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -46,8 +45,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
-        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-PS-251.23774.436" />
+        <option value="bundled-php-predefined-a98d8de5180a-aaeaa8632555-com.jetbrains.php.sharedIndexes-PS-251.23774.436" />
       </set>
     </attachedChunks>
   </component>
@@ -60,6 +59,11 @@
       <option name="presentableId" value="Default" />
       <updated>1744382291680</updated>
       <workItem from="1744382292702" duration="6000" />
+      <workItem from="1744382298884" duration="127000" />
+      <workItem from="1744788355458" duration="8000" />
+      <workItem from="1744788364157" duration="448000" />
+      <workItem from="1744896778357" duration="5000" />
+      <workItem from="1745525281280" duration="164000" />
     </task>
     <servers />
   </component>
