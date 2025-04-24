@@ -1,22 +1,27 @@
 <?php
 class ElementVariation
 {
-    public function __construct(
-        private array $state
-    ) {}
-
-    public function getTagName(): string
-    {
-        return $this->state[0];
+    public string $tagName {
+        get {
+            return $this->tagName;
+        }
+    }
+    private string $displayValue{
+        get {
+            return $this->displayValue;
+        }
+    }
+    public bool $isSelfClosing {
+        get {
+            return $this->isSelfClosing;
+        }
     }
 
-    public function isSelfClosing(): bool
+    // Конструктор з більш зрозумілими типами
+    public function __construct(string $tagName, string $displayValue = 'block', bool $isSelfClosing = false)
     {
-        return $this->state[2];
-    }
-
-    public function displayValue(): string
-    {
-        return $this->state[1];
+        $this->tagName = $tagName;
+        $this->displayValue = $displayValue;
+        $this->isSelfClosing = $isSelfClosing;
     }
 }

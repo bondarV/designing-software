@@ -2,36 +2,33 @@
 
 class ElementFactory
 {
-    public function __construct(array $initialFlyweights ){
-        foreach ($initialFlyweights as $state) {
-            $this->flyweights[$this->getKey($state)] = new ElementVariation($state);
+    private static array $flyweights = [];
+
+
+    public static function getFlyweight(string $tagName, string $displayValue = 'block', bool $isSelfClosing = false): ElementVariation
+    {
+        $key = self::getKey([$tagName, $displayValue, $isSelfClosing]);
+
+        if (!isset(self::$flyweights[$key])) {
+            self::$flyweights[$key] = new ElementVariation($tagName, $displayValue, $isSelfClosing);
         }
 
+        return self::$flyweights[$key];
     }
-    private array $flyweights = [];
 
-    private function getKey(array $state): string
+
+    private static function getKey(array $state): string
     {
         ksort($state);
         return implode('_', $state);
     }
 
-    public function getFlyweight(string $tagName, string $displayValue = 'block', bool $isSelfClosing = false): ElementVariation
+
+    public static function getElementVariations(): void
     {
-        $key = $this->getKey([$tagName, $displayValue, $isSelfClosing]);
-
-        if (!isset($this->flyweights[$key]) || !($this->flyweights[$key] instanceof ElementVariation)) {
-            $this->flyweights[$key] = new ElementVariation([$tagName, $displayValue, $isSelfClosing]);
-        }
-
-        return $this->flyweights[$key];
-    }
-
-    public function getElementVariations(): void
-    {
-        $count = count($this->flyweights);
+        $count = count(self::$flyweights);
         echo "\nFlyweightFactory: I have $count flyweights:\n";
-        foreach ($this->flyweights as $key => $flyweight) {
+        foreach (self::$flyweights as $key => $flyweight) {
             echo $key . "\n";
         }
     }

@@ -1,69 +1,29 @@
 <?php
+
+use parsers\FlyWeightDocumentParser;
+use parsers\MereDocumentParser;
+
 include '../helpers-functions/autoload.php';
-$initialMemory = memory_get_usage();
 
-$factory = new ElementFactory([['body', 'block', 'false'],
-    ['h1', 'block', 'false'],
-    ['h2', 'block', 'false'],
-    ['blockquote', 'block', 'false'],
-    ['p', 'block', 'false']
-]);
-
-$bodyBlockTag = $factory->getFlyweight('body');
-$h1BlockTag = $factory->getFlyweight('h1');
-$h2BlockTag = $factory->getFlyweight('h2');
-$blockQuoteTag = $factory->getFlyweight('blockquote');
-$paragraphBlockTag = $factory->getFlyweight('p');
-
-
-$body = new LightElementNode(elementVariation: $bodyBlockTag);
-
-$headerOne = function (string $firstRowText) use ($body, $h1BlockTag) {
-    $h1Node = new LightElementNode(elementVariation: $h1BlockTag);
-    try {
-        $h1Node->add(new LightTextNode($firstRowText));
-        $body->add($h1Node);
-    }catch (Exception $e)
-    {
-        echo "An error occurred: " . $e->getMessage();    }
-};
-
-$addNode = function (ElementVariation $variation, string $text) use ($body) {
-    $node = new LightElementNode(elementVariation: $variation);
-    $node->add(new LightTextNode($text));
-    $body->add($node);
-};
+$bareInitialMemory = memory_get_usage();
 
 $url = 'https://www.gutenberg.org/cache/epub/1513/pg1513.txt';
-$handle = fopen($url, 'r');
+$bareParser = new MereDocumentParser();
+$flyweightParser = new FlyWeightDocumentParser();
 
-if (!$handle) {
-    throw new Exception("Failed to retrieve content.");
-}
+try {
+    $bareRealization = new Client($url, $bareParser);
+} catch (Exception $e) {}
 
-$firstLineRead = false;
+$bareFinalMemory = memory_get_usage();
 
-while (($line = fgets($handle)) !== false) {
-    $line = trim($line);
+$flyweightInitialMemory = memory_get_usage();
 
-    if (!$firstLineRead) {
-        $headerOne($line);
-        $firstLineRead = true;
-        continue;
-    }
+try {
+    $flyweight = new Client($url, $flyweightParser);
+} catch (Exception $e) {}
 
-    if (strlen($line) < 20) {
-        $addNode($h2BlockTag, $line);
-    } elseif (str_starts_with($line, ' ')) {
-        $addNode($blockQuoteTag, $line);
-    } else {
-        $addNode($paragraphBlockTag, $line);
-    }
-}
+$flyweightFinalMemory = memory_get_usage();
 
-fclose($handle);
-
-echo $body->getHTML() . PHP_EOL;
-$finalMemory = memory_get_usage();
-
-echo "Пам'ять, що використовує дерево верстки: " . ($finalMemory - $initialMemory) . " байт.";
+echo "Пам'ять, що використовує дерево верстки (bare): " . ($bareFinalMemory - $bareInitialMemory) . " байт.".PHP_EOL;
+echo "Пам'ять, що використовує дерево верстки (flyweight): " . ($flyweightFinalMemory - $flyweightInitialMemory) . " байт.";

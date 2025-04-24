@@ -14,7 +14,7 @@ class LightElementNode extends LightNode
 
     public function add(LightNode $child): LightNode
     {
-        if ($this->elementVariation->isSelfClosing()) {
+        if ($this->elementVariation) {
             throw new Exception("Self-closing tags cannot have children.");
         }
         $this->children[] = $child;
@@ -33,7 +33,7 @@ class LightElementNode extends LightNode
 
     public function getInnerHTML(): string
     {
-        if ($this->elementVariation->isSelfClosing()) {
+        if ($this->elementVariation) {
             return "";
         }
         return implode('', array_map(fn($child) => $child->getHTML(), $this->children));
@@ -46,9 +46,9 @@ class LightElementNode extends LightNode
 
     public function getOuterHTML(): string
     {
-        $tagName = $this->elementVariation->getTagName();
+        $tagName = $this->elementVariation;
         $classAttribute = $this->structureClasses() ? ' class="' . $this->structureClasses() . '"' : '';
-        if ($this->elementVariation->isSelfClosing()) {
+        if ($this->elementVariation) {
             return "<$tagName$classAttribute />";
         }
         return "<$tagName$classAttribute>" . $this->getInnerHTML() . "</$tagName>";
