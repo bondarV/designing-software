@@ -6,7 +6,7 @@ class LightElementNode extends LightNode implements SplSubject
     protected ElementVariation $elementVariation;
     protected array $cssClasses = [];
 
-    protected array $listeners = []; // Listeners array, where the key is the event name
+    protected array $listeners = [];
 
     public function __construct(ElementVariation $elementVariation, array $cssClasses = [])
     {
@@ -17,7 +17,7 @@ class LightElementNode extends LightNode implements SplSubject
     public function add(LightNode $child): LightNode
     {
         if ($this->elementVariation->isSelfClosing) {
-            throw new Exception("Self-closing tags cannot have children.");
+            throw new Exception("Self-closing tag <{$this->elementVariation->tagName}> cannot have children.");
         }
         $this->children[] = $child;
         return $child;
@@ -35,9 +35,6 @@ class LightElementNode extends LightNode implements SplSubject
 
     public function getInnerHTML(): string
     {
-        if ($this->elementVariation) {
-            return "";
-        }
         return implode('', array_map(fn($child) => $child->getHTML(), $this->children));
     }
 
