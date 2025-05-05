@@ -17,7 +17,7 @@ class ElementVariation
         }
     }
 
-    // Конструктор з більш зрозумілими типами
+
     public function __construct(string $tagName, string $displayValue = 'block', bool $isSelfClosing = false)
     {
         $this->tagName = $tagName;
