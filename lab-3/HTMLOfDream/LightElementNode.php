@@ -17,7 +17,7 @@ class LightElementNode extends LightNode implements SplSubject
     public function add(LightNode $child): LightNode
     {
         if ($this->elementVariation->isSelfClosing) {
-            throw new Exception("Self-closing tag <{$this->elementVariation->tagName}> cannot have children.");
+            throw new Exception($this->elementVariation->isSelfClosing);
         }
         $this->children[] = $child;
         return $child;

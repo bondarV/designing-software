@@ -12,7 +12,8 @@ class FlyWeightDocumentParser implements IDocumentParser
 
     public function processHeadline(string $text): LightNode
     {
-        $h1 = new LightElementNode(ElementFactory::getFlyweight('h1', 'display', 'false'), ['background-color' => 'red', 'color' => 'white']);
+        $h1 = new LightElementNode(ElementFactory::getFlyweight('h1', 'display', false), ['background-color' => 'red', 'color' => 'white']);
+
 
         $h1->add(new LightTextNode($text));
 
