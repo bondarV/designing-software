@@ -6,12 +6,14 @@ class LightElementNode extends LightNode implements SplSubject
     protected ElementVariation $elementVariation;
     protected array $cssClasses = [];
 
+    protected array $tagAttributes = [];
     protected array $listeners = [];
 
-    public function __construct(ElementVariation $elementVariation, array $cssClasses = [])
+    public function __construct(ElementVariation $elementVariation, array $cssClasses = [], array $tagAttributes = [])
     {
         $this->elementVariation = $elementVariation;
         $this->cssClasses = $cssClasses;
+        $this->tagAttributes = $tagAttributes;
     }
 
     public function add(LightNode $child): LightNode
@@ -38,22 +40,49 @@ class LightElementNode extends LightNode implements SplSubject
         return implode('', array_map(fn($child) => $child->getHTML(), $this->children));
     }
 
-    private function structureClasses(): string
+    private function buildStyleAttribute(): string
     {
-        return implode(" ", $this->cssClasses);
+        $filtered = array_filter(
+            $this->cssClasses,
+            fn($v) => $v !== '' && $v !== null
+        );
+        if (empty($filtered)) {
+            return '';
+        }
+
+        $declarations = array_map(
+            fn($prop, $val) => "$prop:$val",
+            array_keys($filtered),
+            $filtered
+        );
+
+        $string = implode('; ', $declarations);
+        return ' style="' . htmlspecialchars($string, ENT_QUOTES) . '"';
+    }
+
+    private function structureAttributes(): string{
+        $collectionOfAttributes = "";
+        foreach ($this->tagAttributes as $name => $value) {
+            $collectionOfAttributes .= "$name=\"$value\" ";
+        }
+        return $collectionOfAttributes
+            ? <<<HTML
+              style="$collectionOfAttributes"
+              HTML : '';
+
     }
 
     public function getOuterHTML(): string
     {
         $tagName = $this->elementVariation->tagName;
 
-        $classAttribute = $this->structureClasses() ? ' class="' . $this->structureClasses() . '"' : '';
-
+        $classAttr = $this->buildStyleAttribute();
+        $attribute = $this->structureAttributes();
         if ($this->elementVariation->isSelfClosing) {
-            return "<$tagName$classAttribute />";
+            return "<$tagName$classAttr$attribute />";
         }
 
-        return "<$tagName$classAttribute>" . $this->getInnerHTML() . "</$tagName>";
+        return "<$tagName$classAttr$attribute>" . $this->getInnerHTML() . "</$tagName>";
     }
 
     public function getHTML(): string
@@ -62,7 +91,7 @@ class LightElementNode extends LightNode implements SplSubject
     }
 
 
-    public function attach(SplObserver $observer, string $event = '*')
+    public function attach(SplObserver $observer, string $event = '*') : void
     {
 
         if (!isset($this->listeners[$event])) {
@@ -72,7 +101,7 @@ class LightElementNode extends LightNode implements SplSubject
     }
 
 
-    public function detach(SplObserver $observer, string $event = '*')
+    public function detach(SplObserver $observer, string $event = '*') : void
     {
         if (isset($this->listeners[$event])) {
             foreach ($this->listeners[$event] as $key => $value) {
@@ -84,7 +113,7 @@ class LightElementNode extends LightNode implements SplSubject
     }
 
 
-    public function notify()
+    public function notify() : void
     {
         foreach ($this->listeners as $event => $observers) {
             foreach ($observers as $observer) {
