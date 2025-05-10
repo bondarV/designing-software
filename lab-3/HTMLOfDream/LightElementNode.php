@@ -22,6 +22,9 @@ class LightElementNode extends LightNode
         if ($this->elementVariation->isSelfClosing) {
             throw new Exception($this->elementVariation->isSelfClosing);
         }
+        if(method_exists($child, 'onInserted')) {
+            $child->onInserted($this->elementVariation->tagName);
+        }
         $this->children[] = $child;
         return $child;
     }
@@ -61,7 +64,8 @@ class LightElementNode extends LightNode
         return ' style="' . htmlspecialchars($string, ENT_QUOTES) . '"';
     }
 
-    private function structureAttributes(): string{
+    private function structureAttributes(): string
+    {
         $collectionOfAttributes = "";
         foreach ($this->tagAttributes as $name => $value) {
             $collectionOfAttributes .= "$name=\"$value\" ";
@@ -69,7 +73,7 @@ class LightElementNode extends LightNode
         return $collectionOfAttributes
             ? <<<HTML
               style="$collectionOfAttributes"
-              HTML : '';
+              HTML: '';
 
     }
 
@@ -91,4 +95,20 @@ class LightElementNode extends LightNode
         return $this->getOuterHTML();
     }
 
+
+    public function onCreated(): void
+    {
+        echo $this->elementVariation->tagName  . ' created (method' . __METHOD__.')' . PHP_EOL;
+    }
+
+    public function onStylesApplied(): void
+    {
+        if(isset($this->cssClasses)){
+            echo $this->elementVariation->tagName . ' classes declarations applied'.PHP_EOL;
+        }
+    }
+
+    public function onInserted(string $parent): void{
+        echo $this->elementVariation->tagName . ' inserted inside'.$parent.PHP_EOL;
+    }
 }

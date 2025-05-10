@@ -3,7 +3,7 @@
 use strategies\ImageLoadStrategy;
 
 
-class Image extends LightElementNode
+class   Image extends LightElementNode
 {
     private ImageLoadStrategy $strategy;
     private string $source;

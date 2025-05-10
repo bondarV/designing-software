@@ -13,4 +13,13 @@ class LightTextNode extends LightNode{
     {
         return htmlspecialchars($this->text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
+    public function onTextRendered(): void
+    {
+        echo 'text posted: '.$this->text.PHP_EOL;
+    }
+
+    public function onInserted(string $parent): void
+    {
+        echo 'inserted text: '.$this->text.' inside element '.$parent.PHP_EOL;
+    }
 }
