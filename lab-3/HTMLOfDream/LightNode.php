@@ -8,6 +8,7 @@ abstract class LightNode
     final public function lifeCycleExhibit(): void
     {
         $this->onCreated();
+
         $this->onTextRendered();
         $this->onStylesApplied();
     }
@@ -15,9 +16,6 @@ abstract class LightNode
     public function onCreated(): void
     {
     }
-
-
-
     public function onTextRendered(): void
     {
     }

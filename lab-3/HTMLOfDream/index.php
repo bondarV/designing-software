@@ -11,8 +11,8 @@
 <?php
 
 include '../helpers-functions/autoload.php';
-include 'functions/templateUsage.php';
-
+//include 'functions/templateUsage.php';
+include 'functions/iteratorUsage.php'
 ?>
 
 </html>
