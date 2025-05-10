@@ -1,12 +1,14 @@
 <?php
 
+use iterators\BreadthFirstIterator;
+use iterators\DepthFirstIterator;
+
 class LightElementNode extends LightNode
 {
     protected array $children = [];
     protected ElementVariation $elementVariation;
     protected array $cssClasses = [];
-
-    public EventManager $eventManager;
+    protected EventManager $eventManager;
     protected array $tagAttributes = [];
 
     public function __construct(ElementVariation $elementVariation, array $cssClasses = [], array $tagAttributes = [])
@@ -22,9 +24,9 @@ class LightElementNode extends LightNode
         if ($this->elementVariation->isSelfClosing) {
             throw new Exception($this->elementVariation->isSelfClosing);
         }
-        if(method_exists($child, 'onInserted')) {
-            $child->onInserted($this->elementVariation->tagName);
-        }
+//        if(method_exists($child, 'onInserted')) {
+//            $child->onInserted($this->elementVariation->tagName);
+//        }
         $this->children[] = $child;
         return $child;
     }
@@ -98,17 +100,43 @@ class LightElementNode extends LightNode
 
     public function onCreated(): void
     {
-        echo $this->elementVariation->tagName  . ' created (method' . __METHOD__.')' . PHP_EOL;
+        echo $this->elementVariation->tagName . ' created (method' . __METHOD__ . ')' . PHP_EOL;
     }
 
     public function onStylesApplied(): void
     {
-        if(isset($this->cssClasses)){
-            echo $this->elementVariation->tagName . ' classes declarations applied'.PHP_EOL;
+        if (isset($this->cssClasses)) {
+            echo $this->elementVariation->tagName . ' classes declarations applied' . PHP_EOL;
         }
     }
 
-    public function onInserted(string $parent): void{
-        echo $this->elementVariation->tagName . ' inserted inside'.$parent.PHP_EOL;
+    public function onInserted(string $parent): void
+    {
+        echo $this->elementVariation->tagName . ' inserted inside' . $parent . PHP_EOL;
+    }
+
+    public function getDepthFirstIterator(): Iterator
+    {
+        return new DepthFirstIterator($this);
+    }
+
+    public function getBreadthFirstIterator(): Iterator
+    {
+        return new BreadthFirstIterator($this);
+    }
+
+    public function __toString(): string
+    {
+        return $this->elementVariation->tagName;
+    }
+
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
+
+    public function getTagName(): string
+    {
+        return $this->elementVariation->tagName;
     }
 }

@@ -22,4 +22,8 @@ class LightTextNode extends LightNode{
     {
         echo 'inserted text: '.$this->text.' inside element '.$parent.PHP_EOL;
     }
+    public function __toString(): string
+    {
+        return "text: $this->text";
+    }
 }

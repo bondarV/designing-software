@@ -17,7 +17,7 @@ class Client
 
     public function getMarkup() : string
     {
-
+        $body = new LightElementNode(new ElementVariation('body'));
         $firstLineRead = false;
         while (($line = fgets($this->fileHandle)) !== false) {
 
