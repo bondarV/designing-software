@@ -8,9 +8,8 @@ use SplSubject;
 class CollectDataListener implements SplObserver
 {
 
-    public function update(SplSubject $subject)
+    public function update(SplSubject $subject) : void
     {
-        echo "Data collected.";
         ?>
         <script>
             console.log("Data collected.");

@@ -101,14 +101,13 @@ class LightElementNode extends LightNode implements SplSubject
     }
 
 
-    public function detach(SplObserver $observer, string $event = '*') : void
+    public function detach(SplObserver $observer,string $event = '*') : void
     {
         if (isset($this->listeners[$event])) {
-            foreach ($this->listeners[$event] as $key => $value) {
-                if ($value === $observer) {
-                    unset($this->listeners[$event][$key]);
-                }
-            }
+           $this->listeners[$event] = array_filter($this->listeners[$event], fn($o) => $o !== $observer);
+        }
+        if(!$this->listeners[$event]){
+            unset($this->listeners[$event]);
         }
     }
 
