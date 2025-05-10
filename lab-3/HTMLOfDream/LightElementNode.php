@@ -1,19 +1,20 @@
 <?php
 
-class LightElementNode extends LightNode implements SplSubject
+class LightElementNode extends LightNode
 {
     protected array $children = [];
     protected ElementVariation $elementVariation;
     protected array $cssClasses = [];
 
+    public EventManager $eventManager;
     protected array $tagAttributes = [];
-    protected array $listeners = [];
 
     public function __construct(ElementVariation $elementVariation, array $cssClasses = [], array $tagAttributes = [])
     {
         $this->elementVariation = $elementVariation;
         $this->cssClasses = $cssClasses;
         $this->tagAttributes = $tagAttributes;
+        $this->eventManager = new EventManager();
     }
 
     public function add(LightNode $child): LightNode
@@ -90,34 +91,4 @@ class LightElementNode extends LightNode implements SplSubject
         return $this->getOuterHTML();
     }
 
-
-    public function attach(SplObserver $observer, string $event = '*') : void
-    {
-
-        if (!isset($this->listeners[$event])) {
-            $this->listeners[$event] = [];
-        }
-        $this->listeners[$event][] = $observer;
-    }
-
-
-    public function detach(SplObserver $observer,string $event = '*') : void
-    {
-        if (isset($this->listeners[$event])) {
-           $this->listeners[$event] = array_filter($this->listeners[$event], fn($o) => $o !== $observer);
-        }
-        if(!$this->listeners[$event]){
-            unset($this->listeners[$event]);
-        }
-    }
-
-
-    public function notify() : void
-    {
-        foreach ($this->listeners as $event => $observers) {
-            foreach ($observers as $observer) {
-                $observer->update($this);
-            }
-        }
-    }
 }

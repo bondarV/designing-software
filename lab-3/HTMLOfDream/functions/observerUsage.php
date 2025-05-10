@@ -6,11 +6,10 @@ $dataCollector = new CollectDataListener();
 
 $button = new LightElementNode(new ElementVariation('button'));
 $button->add(new LightTextNode('Click me!'));
-$button->attach($dataCollector, 'click');
+$button->eventManager->attach($dataCollector, 'click');
 
 echo $button->getHTML();
-$button->notify();
-
+$button->eventManager->notify();
 
 
 
