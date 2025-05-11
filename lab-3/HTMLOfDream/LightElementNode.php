@@ -2,6 +2,7 @@
 
 use iterators\BreadthFirstIterator;
 use iterators\DepthFirstIterator;
+use visitors\IVisitor;
 
 class LightElementNode extends LightNode
 {
@@ -139,4 +140,10 @@ class LightElementNode extends LightNode
     {
         return $this->elementVariation->tagName;
     }
+    public function accept(IVisitor $visitor): void
+    {
+        $visitor->visitElementNode($this);
+    }
+
+
 }
