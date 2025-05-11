@@ -1,6 +1,8 @@
 <?php
 
 
+use visitors\IVisitor;
+
 class LightTextNode extends LightNode{
     protected string $text;
 
@@ -9,6 +11,10 @@ class LightTextNode extends LightNode{
         $this->text = $text;
     }
 
+    public function getText(): string
+    {
+        return $this->text;
+    }
     public function getHTML(): string
     {
         return htmlspecialchars($this->text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -25,5 +31,15 @@ class LightTextNode extends LightNode{
     public function __toString(): string
     {
         return "text: $this->text";
+    }
+
+
+    public function accept(IVisitor $visitor): void
+    {
+        $visitor->visitTextNode($this);
+    }
+    public function charsData() : array
+    {
+        return count_chars($this->text,1);
     }
 }

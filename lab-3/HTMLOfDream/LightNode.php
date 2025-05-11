@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class LightNode
+abstract class LightNode implements Entity
 {
     abstract public function getHTML(): string;
 
