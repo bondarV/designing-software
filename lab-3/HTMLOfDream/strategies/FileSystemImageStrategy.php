@@ -7,7 +7,7 @@ class FileSystemImageStrategy implements ImageLoadStrategy {
         if (file_exists($source)) {
             echo "Loading image({$source}) from file system...";
         } else {
-            echo 'File not found!';
+            echo 'Document not found!';
         }
     }
 }
